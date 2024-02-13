@@ -8,7 +8,7 @@
 int main(int argc, char *argv[]) {
 
     int rank, size;
-    double t_file_read = 0, t_comp = 0, t_comm = 0, t_total = MPI_Wtime(), t = 0;
+    double t_file_read = 0, t_comp = 0, t_comm = 0, t_total = MPI_Wtime(), t = 0, t_start_comp = 0, t_end_comp = 0;
     struct CSRMatrix M;
 
     MPI_Init(&argc, &argv);
@@ -144,18 +144,21 @@ int main(int argc, char *argv[]) {
         M.vals = (double *)realloc(M.vals, sizeof(double) * M.num_cols);
     }
 
-    if (rank == 0)
-        t_comp = MPI_Wtime();
-
     for (int i = 0; i < STEPS; i++) {
+        if (rank == 0) {
+            t_start_comp = MPI_Wtime();
+        }
         for (int row = 0; row < M.num_rows - 1; row++) {
             for (int col = M.row_ptr[row] - M.row_ptr[0]; col < M.row_ptr[row + 1] - M.row_ptr[0]; col++) {
                 v_new[row] += M.vals[col] * v_old[M.col_ptr[col]];
             }
         }
 
-        if (rank == 0)
+        if (rank == 0) {
+            t_end_comp = MPI_Wtime();
+            t_comp += t_end_comp - t_start_comp;
             t = MPI_Wtime();
+        }
 
         MPI_Allgatherv(v_new, M.num_rows, MPI_DOUBLE, v_old, row_send_counts, row_displs, MPI_DOUBLE, MPI_COMM_WORLD);
 
@@ -176,6 +179,7 @@ int main(int argc, char *argv[]) {
         printf("TIME COMM  : %f\n", t_comm);
         printf("TIME TOTAL : %f\n", t_total);
         printf("FLOPS      : %llu\n", FLOPS);
+        printf("GLOPS      : %f\n", (FLOPS / 1e9) / t_total);
     }
 
     MPI_Finalize();
