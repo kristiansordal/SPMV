@@ -8,6 +8,7 @@
 int main(int argc, char *argv[]) {
 
     int rank, size;
+    double t_file_read = 0, t_comp = 0, t_comm = 0, t_total = MPI_Wtime(), t = 0;
     struct CSRMatrix M;
 
     MPI_Init(&argc, &argv);
@@ -27,11 +28,9 @@ int main(int argc, char *argv[]) {
     col_displs[0] = 0;
 
     if (rank == 0) {
+        t_file_read = MPI_Wtime();
         read_file(&M, argv);
-        for (int i = 0; i < M.num_nonzeros; i++) {
-            printf("%d, %f\n", i, M.vals[i]);
-        }
-        printf("\n");
+        t_file_read = MPI_Wtime() - t_file_read;
 
         // allocate memory for v_old and v_new
         v_old = (double *)malloc(sizeof(double) * M.n);
@@ -74,10 +73,18 @@ int main(int argc, char *argv[]) {
     }
 
     // Broadcast send_counts and displs to all ranks
+    if (rank == 0)
+        t = MPI_Wtime();
+
     MPI_Bcast(row_send_counts, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(col_send_counts, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(row_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(col_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        t = MPI_Wtime() - t;
+        t_comm += t;
+    }
 
     M.num_rows = row_send_counts[rank];
     M.num_cols = col_send_counts[rank]; // local nnz
@@ -88,24 +95,36 @@ int main(int argc, char *argv[]) {
         M.vals = (double *)malloc(sizeof(double) * M.num_cols);
     }
 
-    if (rank == 0) {
-        for (int i = 0; i < size; i++) {
-            printf("%d, %d, %d\n", rank, col_displs[i], col_send_counts[i]);
-        }
-    }
-
     // Scatter row column and value pointers
+    if (rank == 0)
+        t = MPI_Wtime();
+
     MPI_Scatterv(M.row_ptr, row_send_counts, row_displs, MPI_INT, M.row_ptr, M.num_rows, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatterv(M.col_ptr, col_send_counts, col_displs, MPI_INT, M.col_ptr, M.num_cols, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatterv(M.vals, col_send_counts, col_displs, MPI_DOUBLE, M.vals, M.num_cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     // Broadcast v_old
     MPI_Bcast(&M.n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        t = MPI_Wtime() - t;
+        t_comm += t;
+    }
+
     if (rank != 0) {
         v_old = (double *)malloc(sizeof(double) * M.n);
     }
+
+    if (rank == 0)
+        t = MPI_Wtime();
+
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(v_old, M.n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        t = MPI_Wtime() - t;
+        t_comm += t;
+    }
 
     // Allocate memory for v_new
     v_new = (double *)malloc(sizeof(double) * M.num_rows);
@@ -125,6 +144,9 @@ int main(int argc, char *argv[]) {
         M.vals = (double *)realloc(M.vals, sizeof(double) * M.num_cols);
     }
 
+    if (rank == 0)
+        t_comp = MPI_Wtime();
+
     for (int i = 0; i < STEPS; i++) {
         for (int row = 0; row < M.num_rows - 1; row++) {
             for (int col = M.row_ptr[row] - M.row_ptr[0]; col < M.row_ptr[row + 1] - M.row_ptr[0]; col++) {
@@ -132,8 +154,30 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        if (rank == 0)
+            t = MPI_Wtime();
+
         MPI_Allgatherv(v_new, M.num_rows, MPI_DOUBLE, v_old, row_send_counts, row_displs, MPI_DOUBLE, MPI_COMM_WORLD);
+
+        if (rank == 0) {
+            t = MPI_Wtime() - t;
+            t_comm += t;
+        }
     }
+
+    if (rank == 0) {
+        t_comp = MPI_Wtime() - t_comp;
+        t_total = MPI_Wtime() - t_total;
+
+        unsigned long long FLOPS = (unsigned long long)M.num_nonzeros * STEPS * 2;
+
+        printf("TIME READ  : %f\n", t_file_read);
+        printf("TIME COMP  : %f\n", t_comp);
+        printf("TIME COMM  : %f\n", t_comm);
+        printf("TIME TOTAL : %f\n", t_total);
+        printf("FLOPS      : %llu\n", FLOPS);
+    }
+
     MPI_Finalize();
 
     return 0;
