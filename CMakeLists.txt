@@ -23,3 +23,4 @@ add_executable(test
 
 target_include_directories(test PRIVATE ${MPI_C_INCLUDE_PATH})
 target_link_libraries(test PRIVATE ${MPI_C_LIBRARIES})
+target_compile_options(test PRIVATE -fsanitize=address)
