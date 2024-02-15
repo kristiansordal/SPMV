@@ -182,6 +182,14 @@ int main(int argc, char *argv[]) {
         printf("GLOPS      : %f\n", (FLOPS / 1e9) / t_total);
     }
 
+    free(v_old);
+    free(v_new);
+    free(row_send_counts);
+    free(row_displs);
+    free(M.row_ptr);
+    free(M.col_ptr);
+    free(M.vals);
+
     MPI_Finalize();
 
     return 0;
