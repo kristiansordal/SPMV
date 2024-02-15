@@ -79,6 +79,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    printf("rank %d here", rank);
+
     // Broadcast send_counts and displs to all ranks
     if (rank == 0)
         t = MPI_Wtime();
@@ -87,6 +89,8 @@ int main(int argc, char *argv[]) {
     MPI_Bcast(col_send_counts, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(row_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(col_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    printf("rank %d here", rank);
 
     if (rank == 0) {
         t = MPI_Wtime() - t;
