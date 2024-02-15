@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
         if (rank == 0) {
             t_start_comp = MPI_Wtime();
         }
-        for (int row = 0; row < M.num_rows - 1; row++) {
+        for (int row = 0; row < M.num_rows; row++) {
             for (int col = M.row_ptr[row] - M.row_ptr[0]; col < M.row_ptr[row + 1] - M.row_ptr[0]; col++) {
                 v_new[row] += M.vals[col] * v_old[M.col_ptr[col]];
             }
