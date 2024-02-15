@@ -35,9 +35,8 @@ int main(int argc, char *argv[]) {
         read_file(&M, argv);
         t_file_read = MPI_Wtime() - t_file_read;
 
-        // allocate memory for v_old and v_new
+        // allocate memory for v_old
         v_old = (double *)malloc(sizeof(double) * M.n);
-        v_new = (double *)malloc(sizeof(double) * M.n);
 
         for (int i = 0; i < M.n; i++) {
             v_old[i] = rand() % 5;
@@ -48,6 +47,10 @@ int main(int argc, char *argv[]) {
         int curr_rank = 0;
 
         // Load balance
+        for (int i = 0; i < size; i++) {
+            row_send_counts[i] = 0;
+        }
+
         for (int i = 0; i < M.num_rows; i++) {
             row_send_counts[curr_rank]++;
 
@@ -75,8 +78,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    printf("rank %d here", rank);
-
     // Broadcast send_counts and displs to all ranks
     if (rank == 0)
         t = MPI_Wtime();
@@ -85,8 +86,6 @@ int main(int argc, char *argv[]) {
     MPI_Bcast(col_send_counts, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(row_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(col_displs, size, MPI_INT, 0, MPI_COMM_WORLD);
-
-    printf("rank %d here", rank);
 
     if (rank == 0) {
         t = MPI_Wtime() - t;
@@ -125,7 +124,6 @@ int main(int argc, char *argv[]) {
     if (rank == 0)
         t = MPI_Wtime();
 
-    MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(v_old, M.n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     if (rank == 0) {
@@ -134,9 +132,9 @@ int main(int argc, char *argv[]) {
     }
 
     // Allocate memory for v_new
-    v_new = (double *)malloc(sizeof(double) * M.num_rows);
+    v_new = (double *)malloc(sizeof(double) * M.num_rows - 1);
 
-    for (int i = 0; i < M.num_rows; i++) {
+    for (int i = 0; i < M.num_rows - 1; i++) {
         v_new[i] = 0;
     }
 
@@ -151,6 +149,9 @@ int main(int argc, char *argv[]) {
         M.vals = (double *)realloc(M.vals, sizeof(double) * M.num_cols);
     }
 
+    for (int i = 0; i < size; i++) {
+        row_send_counts[i]--;
+    }
     for (int i = 0; i < STEPS; i++) {
         if (rank == 0) {
             t_start_comp = MPI_Wtime();
@@ -167,7 +168,8 @@ int main(int argc, char *argv[]) {
             t = MPI_Wtime();
         }
 
-        MPI_Allgatherv(v_new, M.num_rows, MPI_DOUBLE, v_old, row_send_counts, row_displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Allgatherv(v_new, M.num_rows - 1, MPI_DOUBLE, v_old, row_send_counts, row_displs, MPI_DOUBLE,
+                       MPI_COMM_WORLD);
 
         if (rank == 0) {
             t = MPI_Wtime() - t;
