@@ -17,6 +17,11 @@ int main(int argc, char *argv[]) {
 
     double *v_old, *v_new;
 
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        sleep(60);
+    }
+
     // Variables for scattering of row and column pointer.
     // NOTE Column send counts and column displacement is also used for the values
     int *row_send_counts = (int *)malloc(sizeof(int) * size);
