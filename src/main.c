@@ -3,6 +3,7 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define STEPS 100
 
 int main(int argc, char *argv[]) {
@@ -18,6 +19,7 @@ int main(int argc, char *argv[]) {
     double *v_old, *v_new;
 
     MPI_Barrier(MPI_COMM_WORLD);
+
     if (rank == 0) {
         sleep(60);
     }
