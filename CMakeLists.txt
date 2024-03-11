@@ -3,46 +3,38 @@ cmake_minimum_required(VERSION 3.17)
 project(SpMV
     VERSION 0.0.1
     DESCRIPTION "Sparse Matrix Multiplication"
-    LANGUAGES C CXX
+    LANGUAGES C
 )
 
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 11)
 
-# Find MPI
+
+# Set include directory
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Set the module path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# Find MPI and METIS
 find_package(MPI REQUIRED)
+find_package(METIS REQUIRED)
 
-add_executable(1a 
-    src/1a/matrix.h
-    src/1a/read_file.c
-    src/1a/read_file.h
-    src/1a/spmv.h
-    src/1a/spmv.c
-    src/1a/main.c
-)
+# add_executable(1a 
+#     src/main_1a.c
+#     src/spmv.c
+# )
 add_executable(1b 
-    src/1b/matrix.h
-    src/1b/read_file.c
-    src/1b/read_file.h
-    src/1b/main.c
+    src/main_1b.c
+    src/spmv.c
 )
 
 
-add_executable(test
-    src/test/main.c
-)
-target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH})
-target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES})
-target_compile_options(1a PRIVATE -fsanitize=address)
-target_link_options(1a PRIVATE -fsanitize=address)
+# target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH})
+# target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES})
+# target_compile_options(1a PRIVATE -fsanitize=address)
+# target_link_options(1a PRIVATE -fsanitize=address)
 
-target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH})
-target_link_libraries(1b PRIVATE ${MPI_C_LIBRARIES})
+target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+target_link_libraries(1b PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES})
 target_compile_options(1b PRIVATE -fsanitize=address)
 target_link_options(1b PRIVATE -fsanitize=address)
-
-
-target_include_directories(test PRIVATE ${MPI_C_INCLUDE_PATH})
-target_link_libraries(test PRIVATE ${MPI_C_LIBRARIES})
-target_compile_options(test PRIVATE -fsanitize=address)
-target_link_options(test PRIVATE -fsanitize=address)

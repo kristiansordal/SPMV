@@ -6,6 +6,40 @@
 #include <string.h>
 #define STEPS 100
 
+void read_file(struct CSRMatrix *M, char **argv) {
+    const char *csr_file_name = argv[1];
+    FILE *file_in = fopen(csr_file_name, "rb");
+
+    if (!file_in) {
+        perror("Error opening file");
+    }
+
+    if (fread(&M->n, sizeof(M->n), 1, file_in) != 1 || M->n <= 0 ||
+        fread(&M->num_cols, sizeof(M->num_cols), 1, file_in) != 1 || M->num_cols <= 0 ||
+        fread(&M->num_nonzeros, sizeof(M->num_nonzeros), 1, file_in) != 1 || M->num_nonzeros <= 0) {
+
+        fprintf(stderr, "Error reading CSR header section from binary file %s\n", csr_file_name);
+        fclose(file_in);
+    }
+
+    M->num_rows = M->n;
+    M->row_ptr = (int *)malloc(sizeof(int) * (M->n + 1));
+    M->col_ptr = (int *)malloc(sizeof(int) * M->num_nonzeros);
+    M->vals = (double *)malloc(sizeof(double) * M->num_nonzeros);
+
+    if (fread(M->row_ptr, sizeof(int), M->n + 1, file_in) != M->n + 1 ||
+        fread(M->col_ptr, sizeof(int), M->num_nonzeros, file_in) != M->num_nonzeros ||
+        fread(M->vals, sizeof(double), M->num_nonzeros, file_in) != M->num_nonzeros) {
+
+        fprintf(stderr, "Error reading matrix data from binary file %s\n", csr_file_name);
+        free(M->vals);
+        free(M->row_ptr);
+        free(M->col_ptr);
+        fclose(file_in);
+    }
+
+    fclose(file_in);
+}
 int main(int argc, char **argv) {
 
     int rank, size;
@@ -65,29 +99,6 @@ int main(int argc, char **argv) {
                                                : M.row_ptr[row_displs[i + 1]] - M.row_ptr[row_displs[i]];
             col_displs[i] = i == 0 ? 0 : col_displs[i - 1] + col_send_counts[i - 1];
         }
-
-        // Adjust row pointers for each rank
-        // for (int i = 0; i < size; i++) {
-        //     int start = row_displs[i];
-        //     int end = i == size - 1 ? M.num_rows : row_displs[i + 1];
-        //     if (i > 0) {
-        //         int adjustment = M.row_ptr[start] - M.row_ptr[row_displs[i - 1]];
-        //         for (int j = start; j < end; j++)
-        //             M.row_ptr[j] -= adjustment;
-        //     }
-        // }
-
-        // Determine separators
-        int send_list[size];
-
-        // unsure if this is correct
-        for (int i = 0; i < size; i++) {
-            int start = M.row_ptr[row_displs[i]];
-            int end = i == size - 1 ? M.num_nonzeros : M.row_ptr[row_displs[i + 1]];
-            for (int i = start; i < end; i++) {
-                int col = M.col_ptr[i];
-            }
-        }
     }
 
     MPI_Bcast(row_send_counts, size, MPI_INT, 0, MPI_COMM_WORLD);
@@ -109,23 +120,12 @@ int main(int argc, char **argv) {
     MPI_Scatterv(M.col_ptr, col_send_counts, col_displs, MPI_INT, M.col_ptr, M.num_cols, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatterv(M.vals, col_send_counts, col_displs, MPI_DOUBLE, M.vals, M.num_cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-    if (rank == 0) {
-        for (int i = 0; i < M.num_rows; i++) {
-            printf("%d ", M.row_ptr[i]);
-        }
-        printf("\n");
-    }
     // Adjust row pointers to local indices
     for (int i = 1; i < M.num_rows; i++)
         M.row_ptr[i] -= M.row_ptr[0];
     M.row_ptr[0] = 0;
 
     --M.num_rows;
-    if (rank == 1) {
-        for (int i = 0; i < M.num_rows; i++) {
-            printf("Rank %d: %d\n", rank, M.row_ptr[i]);
-        }
-    }
 
     // Broadcast v_old
     MPI_Bcast(&M.n, 1, MPI_INT, 0, MPI_COMM_WORLD);
