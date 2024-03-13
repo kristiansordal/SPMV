@@ -71,11 +71,15 @@ int main(int argc, char **argv) {
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
     find_sendlists_singleton(G, p, rank, size, &comm);
 
-    if (rank == 0) {
-        for (int i = 0; i < comm.send_count; i++) {
-            printf("rank: %d, comm.send_lists[%d]: %d\n", rank, i, comm.send_items[i]);
+    // if (rank == 0) {
+    for (int i = 0; i < size; i++) {
+        if (i == rank) {
+            for (int i = 0; i < comm.send_count; i++) {
+                printf("rank: %d, comm.send_lists[%d]: %d\n", rank, i, comm.send_items[i]);
+            }
         }
     }
+    // }
 
     v_new = malloc(sizeof(double) * G.n);
 

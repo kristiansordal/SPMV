@@ -336,7 +336,6 @@ void free_graph(Graph *G) {
 int compare(const void *a, const void *b, void *c) {
     int ia = *(const int *)a, ib = *(const int *)b;
     int *data = (int *)c; // Cast void* back to int* to use it as intended.
-    printf("%d %d\n", ia, ib);
 
     return data[ia] - data[ib];
 }
@@ -352,9 +351,8 @@ void sort_edges(Graph G) {
 #pragma omp for
         for (int u = 0; u < G.n; u++) {
             int degree = G.vertices[u + 1] - G.vertices[u];
-            for (int i = 0; i < degree; i++) {
+            for (int i = 0; i < degree; i++)
                 index[i] = i;
-            }
 
 #ifdef __APPLE__
             qsort_r(index, degree, sizeof(int), G.edges + G.vertices[u], compare);
@@ -413,14 +411,22 @@ void normalize_graph(Graph G) {
 int validate_graph(Graph G) {
     for (int u = 0; u < G.n; u++) {
         int degree = G.vertices[u + 1] - G.vertices[u];
-        if (degree < 0 || degree > G.m)
+        if (degree < 0 || degree > G.m) {
+            printf("Error in degree\n");
             return 0;
+        }
 
         for (int i = G.vertices[u]; i < G.vertices[u + 1]; i++) {
-            if (G.edges[i] < 0 || G.edges[i] > G.m)
+            if (G.edges[i] < 0 || G.edges[i] > G.m) {
+                printf("Error in edges\n");
                 return 0;
-            if (i > G.vertices[u] && G.edges[i] <= G.edges[i - 1])
+            }
+            if (i > G.vertices[u] && G.edges[i] <= G.edges[i - 1]) {
+                printf("%d %d\n", i, G.vertices[u]);
+                printf("%d %d\n", G.edges[i], G.edges[i - 1]);
+                printf("Error in sorted edges\n");
                 return 0;
+            }
         }
     }
     return 1;
