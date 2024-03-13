@@ -333,32 +333,38 @@ void free_graph(Graph *G) {
     G->edges = NULL;
 }
 
-int compare(const int *a, const void *b, void *c) {
-    int ia = *(const int *)a, ib = *(const int *)b;
-    int *data = (int *)c; // Cast void* back to int* to use it as intended.
-
+int compare(const int *a, const int *b, int *data) {
+    int ia = *a, ib = *b;
+    printf("%d %d\n", ia, ib);
     return data[ia] - data[ib];
 }
 
 void sort_edges(Graph G) {
 
-    printf("%d\n", G.n);
-    printf("%d\n", G.m);
-    printf("%d\n", G.vertices[G.n - 1]);
-    printf("%d\n", G.edges[G.m - 1]);
     // #pragma omp parallel
     //     {
-    int *index = malloc(sizeof(int) * G.n);
-    int *E_buffer = malloc(sizeof(int) * G.n);
-    double *A_buffer = malloc(sizeof(double) * G.n);
+    int *index = malloc(sizeof(int) * G.m);
+    int *E_buffer = malloc(sizeof(int) * G.m);
+    double *A_buffer = malloc(sizeof(double) * G.m);
+
+    for (int i = 0; i < G.n; i++) {
+        printf("%d ", G.vertices[i]);
+    }
+    printf("\n");
+
+    for (int i = 0; i < G.m; i++) {
+        printf("%d ", G.edges[i]);
+    }
+    printf("\n");
 
     // #pragma omp for
     for (int u = 0; u < G.n; u++) {
         int degree = G.vertices[u + 1] - G.vertices[u];
-        for (int i = 0; i < degree; i++)
+        for (int i = 0; i < degree; i++) {
             index[i] = i;
+            printf("%d\n", index[i]);
+        }
 
-        printf("G.vertices[%d], %d\n", u, degree);
         qsort_r(index, degree, sizeof(int), compare, G.edges + G.vertices[u]);
 
         for (int i = 0; i < degree; i++) {
