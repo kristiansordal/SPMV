@@ -1,5 +1,5 @@
-#include <graph.h>
 #include <mpi.h>
+#include <mtx.h>
 #include <spmv.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +21,7 @@ void read_file(Graph *G, char **argv) {
     }
 
     G->vertices = (int *)malloc(sizeof(int) * (G->n + 1));
+    G->m = G->nnz;
     printf("Num nonzeros: %d\n", G->nnz);
     G->edges = (int *)malloc(sizeof(int) * G->nnz);
     G->vals = (double *)malloc(sizeof(double) * G->nnz);
@@ -36,6 +37,7 @@ void read_file(Graph *G, char **argv) {
         fclose(file_in);
     } else {
         printf("Successfully read matrix data from binary file %s\n", csr_file_name);
+        printf("|V| = %d |E| = %d NNZ: %d\n", G->n, G->m, G->nnz);
     }
 
     fclose(file_in);
@@ -49,31 +51,40 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     double *v_old, *v_new;
-    comm_lists comm = init_comm_lists(size);
+    comm_lists_singleton comm = init_comm_list_singleton(size);
     Graph G;
     int *p = malloc(sizeof(int) * (size + 1)); // pfs array
 
-    // read file
+    // read file on rank 0
     if (rank == 0) {
-        read_file(&G, argv);
-        for (int i = 0; i < G.n; i++) {
-            v_old[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-        }
-        // for (int i = 0; i < G.n; i++) {
-        //     printf("%d ", G.vertices[i]);
-        // }
-        // printf("\n");
+        G = parse_and_validate_mtx(argv[1]);
+        // read_file(&G, argv);
+        v_old = malloc(sizeof(double) * G.n);
+        for (int i = 0; i < G.n; i++)
+            v_old[i] = 1;
+
         partition_graph(G, size, p, v_old);
-        // for (int i = 0; i < G.n; i++) {
-        //     printf("%d ", G.vertices[i]);
-        // }
-        // // printf("\n");
-        // // for (int i = 0; i < size; i++) {
-        // //     printf("%d ", p[i]);
-        // // }
-        // printf("\n");
     }
 
+    distribute_graph(&G, rank);
+
+    MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
+    find_sendlists_singleton(G, p, rank, size, &comm);
+
+    if (rank == 0) {
+        for (int i = 0; i < comm.send_count; i++) {
+            printf("rank: %d, comm.send_lists[%d]: %d\n", rank, i, comm.send_items[i]);
+        }
+    }
+
+    v_new = malloc(sizeof(double) * G.n);
+
+    free_graph(&G);
+    free(p);
+    if (rank == 0)
+        free(v_old);
+    free(v_new);
+    free_comm_lists_singleton(&comm);
     MPI_Finalize();
     return 0;
 }
