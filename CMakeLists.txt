@@ -42,5 +42,5 @@ target_link_libraries(1b PRIVATE
     ${METIS_LIBRARIES}
     OpenMP::OpenMP_C
 )
-target_compile_options(1b PRIVATE -fsanitize=address)
+target_compile_options(1b PRIVATE -fsanitize=address -lm -O3)
 target_link_options(1b PRIVATE -fsanitize=address)
