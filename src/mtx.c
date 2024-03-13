@@ -333,53 +333,48 @@ void free_graph(Graph *G) {
     G->edges = NULL;
 }
 
-int compare(const int *a, const int *b, int *data) {
-    int ia = *a, ib = *b;
+int compare(const void *a, const void *b, void *c) {
+    int ia = *(const int *)a, ib = *(const int *)b;
+    int *data = (int *)c; // Cast void* back to int* to use it as intended.
     printf("%d %d\n", ia, ib);
+
     return data[ia] - data[ib];
 }
 
 void sort_edges(Graph G) {
 
-    // #pragma omp parallel
-    //     {
-    int *index = malloc(sizeof(int) * G.m);
-    int *E_buffer = malloc(sizeof(int) * G.m);
-    double *A_buffer = malloc(sizeof(double) * G.m);
+#pragma omp parallel
+    {
+        int *index = malloc(sizeof(int) * G.m);
+        int *E_buffer = malloc(sizeof(int) * G.m);
+        double *A_buffer = malloc(sizeof(double) * G.m);
 
-    for (int i = 0; i < G.n; i++) {
-        printf("%d ", G.vertices[i]);
-    }
-    printf("\n");
+#pragma omp for
+        for (int u = 0; u < G.n; u++) {
+            int degree = G.vertices[u + 1] - G.vertices[u];
+            for (int i = 0; i < degree; i++) {
+                index[i] = i;
+            }
 
-    for (int i = 0; i < G.m; i++) {
-        printf("%d ", G.edges[i]);
-    }
-    printf("\n");
+#ifdef __APPLE__
+            qsort_r(index, degree, sizeof(int), G.edges + G.vertices[u], compare);
+#elif __linux__
+            qsort_r(index, degree, sizeof(int), compare, G.edges + G.vertices[u]);
+#endif
 
-    // #pragma omp for
-    for (int u = 0; u < G.n; u++) {
-        int degree = G.vertices[u + 1] - G.vertices[u];
-        for (int i = 0; i < degree; i++) {
-            index[i] = i;
-            printf("%d\n", index[i]);
+            for (int i = 0; i < degree; i++) {
+                E_buffer[i] = G.edges[G.vertices[u] + index[i]];
+                A_buffer[i] = G.vals[G.vertices[u] + index[i]];
+            }
+
+            memcpy(G.edges + G.vertices[u], E_buffer, degree * sizeof(int));
+            memcpy(G.vals + G.vertices[u], A_buffer, degree * sizeof(double));
         }
 
-        qsort_r(index, degree, sizeof(int), compare, G.edges + G.vertices[u]);
-
-        for (int i = 0; i < degree; i++) {
-            E_buffer[i] = G.edges[G.vertices[u] + index[i]];
-            A_buffer[i] = G.vals[G.vertices[u] + index[i]];
-        }
-
-        memcpy(G.edges + G.vertices[u], E_buffer, degree * sizeof(int));
-        memcpy(G.vals + G.vertices[u], A_buffer, degree * sizeof(double));
+        free(index);
+        free(E_buffer);
+        free(A_buffer);
     }
-
-    free(index);
-    free(E_buffer);
-    free(A_buffer);
-    // }
     printf("Graph sorted\n");
 }
 
@@ -412,7 +407,7 @@ void normalize_graph(Graph G) {
     for (int i = 0; i < G.m; i++) {
         G.vals[i] = (G.vals[i] - mean) / (std + __DBL_EPSILON__);
     }
-    printf("Graph normiazlied\n");
+    printf("Graph normalized\n");
 }
 
 int validate_graph(Graph G) {
