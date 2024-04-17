@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.17)
 project(SpMV
     VERSION 0.0.1
     DESCRIPTION "Sparse Matrix Multiplication"
-    LANGUAGES C
+    LANGUAGES CXX
 )
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 
 
 # Set include directory
@@ -20,28 +20,32 @@ find_package(MPI REQUIRED)
 find_package(METIS REQUIRED)
 find_package(OpenMP REQUIRED)
 
-# add_executable(1a 
-#     src/main_1a.c
-#     src/spmv.c
-# )
+# Find Fast Matrix Market
+include(FetchContent)
+FetchContent_Declare(
+        fast_matrix_market
+        GIT_REPOSITORY https://github.com/alugowski/fast_matrix_market
+        GIT_TAG main
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(fast_matrix_market)
+
 add_executable(1b 
-    src/main_1b.c
-    src/spmv.c
-    src/mtx.c
+    src/main.cpp
 )
 
 
-# target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH})
-# target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES})
-# target_compile_options(1a PRIVATE -fsanitize=address)
-# target_link_options(1a PRIVATE -fsanitize=address)
 
 target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
 target_link_libraries(1b PRIVATE 
-    ${MPI_C_LIBRARIES}
+    ${MPI_CXX_LIBRARIES}
     ${METIS_LIBRARIES}
-    OpenMP::OpenMP_C
+    OpenMP::OpenMP_CXX
+    fast_matrix_market::fast_matrix_market
     m
+
 )
 target_compile_options(1b PRIVATE -fsanitize=address -O3)
 target_link_options(1b PRIVATE -fsanitize=address)
+
+set(CMAKE_COLOR_DIAGNOSTICS On)
