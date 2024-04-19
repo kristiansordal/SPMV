@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
         g.partition_graph(size, p, v_old);
         g.determine_separators(size, p, separators);
     }
+    MPI_Barrier(MPI_COMM_WORLD);
     g.distribute_graph(rank, size, p);
 
     // if (rank == 0) {

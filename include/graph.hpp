@@ -198,8 +198,6 @@ template <typename IT, typename VT> class Graph {
             MPI_Recv(&vertices[vertices_sendcount[rank]], 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         else
             vertices[vertices_sendcount[rank]] = N;
-
-        std::cout << "Done distributing graph\n";
     }
 
     void normalize();
