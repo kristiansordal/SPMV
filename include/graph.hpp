@@ -41,37 +41,53 @@ template <typename IT, typename VT> class Graph {
         sort_mtx(r, c, v);
     }
 
+    // void sort_mtx(std::vector<IT> &rows, std::vector<IT> &cols, std::vector<VT> &values) {
+    //     std::cout << "Sorting mtx file...\n";
+    //     std::vector<IT> row_count(N + 1, 0);
+
+    //     for (auto &v : rows)
+    //         ++row_count[v];
+    //     std::cout << "Got row count" << std::endl;
+
+    //     vertices.assign(N + 1, 0);
+    //     std::exclusive_scan(row_count.begin(), row_count.end(), vertices.begin(), 0);
+    //     std::vector<IT> perm(rows.size());
+    //     std::iota(perm.begin(), perm.end(), 0);
+    //     std::cout << "iota,ex scan, vert assign done" << std::endl;
+    //     std::sort(perm.begin(), perm.end(), [rows, cols](IT i, IT j) {
+    //         if (rows[i] != rows[j])
+    //             return rows[i] < rows[j];
+    //         if (cols[i] != cols[j])
+    //             return cols[i] < cols[j];
+    //         return false;
+    //     });
+    //     std::cout << "sorting done" << std::endl;
+
+    //     edges.reserve(cols.size());
+    //     vals.reserve(cols.size());
+    //     std::cout << "edges, vals reserve done" << std::endl;
+    //     std::transform(perm.begin(), perm.end(), std::back_inserter(edges), [&](auto i) { return cols[i]; });
+    //     std::transform(perm.begin(), perm.end(), std::back_inserter(vals), [&](auto i) { return values[i]; });
+    //     std::cout << "transform done" << std::endl;
+    //     nnz = edges.size();
+    //     M = nnz;
+    //     std::cout << "Done sorting mtx file...\n";
+    // }
     void sort_mtx(std::vector<IT> &rows, std::vector<IT> &cols, std::vector<VT> &values) {
-        std::cout << "Sorting mtx file...\n";
-        std::vector<IT> row_count(N + 1, 0);
+        std::vector<std::tuple<IT, IT, VT>> tuples;
+        tuples.reserve(rows.size());
+        for (size_t i = 0; i < rows.size(); ++i)
+            tuples.emplace_back(rows[i], cols[i], values[i]);
 
-        for (auto &v : rows)
-            ++row_count[v];
-        std::cout << "Got row count" << std::endl;
-
-        vertices.assign(N + 1, 0);
-        std::exclusive_scan(row_count.begin(), row_count.end(), vertices.begin(), 0);
-        std::vector<IT> perm(rows.size());
-        std::iota(perm.begin(), perm.end(), 0);
-        std::cout << "iota,ex scan, vert assign done" << std::endl;
-        std::sort(perm.begin(), perm.end(), [rows, cols](IT i, IT j) {
-            if (rows[i] != rows[j])
-                return rows[i] < rows[j];
-            if (cols[i] != cols[j])
-                return cols[i] < cols[j];
-            return false;
+        std::sort(tuples.begin(), tuples.end(), [](const auto &a, const auto &b) {
+            return std::tie(std::get<0>(a), std::get<1>(a)) < std::tie(std::get<0>(b), std::get<1>(b));
         });
-        std::cout << "sorting done" << std::endl;
 
-        edges.reserve(cols.size());
-        vals.reserve(cols.size());
-        std::cout << "edges, vals reserve done" << std::endl;
-        std::transform(perm.begin(), perm.end(), std::back_inserter(edges), [&](auto i) { return cols[i]; });
-        std::transform(perm.begin(), perm.end(), std::back_inserter(vals), [&](auto i) { return values[i]; });
-        std::cout << "transform done" << std::endl;
-        nnz = edges.size();
-        M = nnz;
-        std::cout << "Done sorting mtx file...\n";
+        for (size_t i = 0; i < tuples.size(); ++i) {
+            rows[i] = std::get<0>(tuples[i]);
+            cols[i] = std::get<1>(tuples[i]);
+            values[i] = std::get<2>(tuples[i]);
+        }
     }
 
     /* Partitions a graph into k parts usint METIS_PartGraphRecursive
