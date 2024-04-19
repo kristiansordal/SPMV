@@ -113,8 +113,8 @@ template <typename IT, typename VT> class Graph {
         int objval, ncon = 1;
         real_t ubvec = 1.01;
 
-        int rc = METIS_PartGraphRecursive(&N, &ncon, vertices.data(), edges.data(), nullptr, nullptr, nullptr, &k,
-                                          nullptr, &ubvec, nullptr, &objval, partition.data());
+        int rc = METIS_PartGraphKway(&N, &ncon, vertices.data(), edges.data(), nullptr, nullptr, nullptr, &k, nullptr,
+                                     &ubvec, nullptr, &objval, partition.data());
 
         std::vector<IT> new_id(N, 0), old_id(N, 0);
         int id = 0;
