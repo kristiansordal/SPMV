@@ -26,7 +26,7 @@ template <typename IT, typename VT> class Graph {
           nnz(0){};
     ~Graph() = default;
 
-    void read_mtx(std::string &file_path, bool is_symmetric = false) {
+    void read_mtx(std::string &file_path /* , bool is_symmetric = false */) {
         std::cout << "Reading mtx file: " << file_path << "\n";
         std::ifstream file(file_path);
         std::vector<IT> r, c;
@@ -34,7 +34,7 @@ template <typename IT, typename VT> class Graph {
 
         fmm::read_options options;
         options.parallel_ok = true;
-        options.generalize_symmetry = is_symmetric;
+        // options.generalize_symmetry = is_symmetric;
 
         fmm::read_matrix_market_triplet(file, N, M, r, c, v, options);
         std::cout << "|V| = " << N << " |E| = " << M << "\n";
