@@ -47,11 +47,13 @@ template <typename IT, typename VT> class Graph {
 
         for (auto &v : rows)
             ++row_count[v];
+        std::cout << "Got row count" << std::endl;
 
         vertices.assign(N + 1, 0);
         std::exclusive_scan(row_count.begin(), row_count.end(), vertices.begin(), 0);
         std::vector<IT> perm(rows.size());
         std::iota(perm.begin(), perm.end(), 0);
+        std::cout << "iota,ex scan, vert assign done" << std::endl;
         std::sort(perm.begin(), perm.end(), [rows, cols](IT i, IT j) {
             if (rows[i] != rows[j])
                 return rows[i] < rows[j];
@@ -59,11 +61,14 @@ template <typename IT, typename VT> class Graph {
                 return cols[i] < cols[j];
             return false;
         });
+        std::cout << "sorting done" << std::endl;
 
         edges.reserve(cols.size());
         vals.reserve(cols.size());
+        std::cout << "edges, vals reserve done" << std::endl;
         std::transform(perm.begin(), perm.end(), std::back_inserter(edges), [&](auto i) { return cols[i]; });
         std::transform(perm.begin(), perm.end(), std::back_inserter(vals), [&](auto i) { return values[i]; });
+        std::cout << "transform done" << std::endl;
         nnz = edges.size();
         M = nnz;
         std::cout << "Done sorting mtx file...\n";
