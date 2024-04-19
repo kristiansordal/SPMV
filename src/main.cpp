@@ -22,14 +22,6 @@ int main(int argc, char **argv) {
 
         g.partition_graph(size, p, v_old);
         g.determine_separators(size, p, separators);
-
-        // print separators
-        for (int i = 0; i < size; i++) {
-            cout << "Rank " << i << " separators: ";
-            for (int j = 0; j < separators[i].size(); j++)
-                cout << separators[i][j] << " ";
-            cout << endl;
-        }
     }
     g.distribute_graph(rank, size, p);
 

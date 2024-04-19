@@ -9,11 +9,14 @@
 #include <vector>
 namespace fmm = fast_matrix_market;
 
+// TODO: refactor variable names to something more sensible. Right now there is a mixture of using both "rows"
+// "vertices" "cols" and "edges"
 // IT: Index Type
 // VT: Value Type
 template <typename IT, typename VT> class Graph {
   public:
     int N, M, nnz;
+    int n_local_vertices, n_local_edges;
     std::vector<IT> vertices, edges;
     std::vector<VT> vals;
 
@@ -21,7 +24,6 @@ template <typename IT, typename VT> class Graph {
         : N(0),
           M(0),
           nnz(0){};
-
     ~Graph() = default;
 
     void read_mtx(std::string &file_path, bool is_symmetric = false) {
@@ -35,27 +37,22 @@ template <typename IT, typename VT> class Graph {
         options.generalize_symmetry = is_symmetric;
 
         fmm::read_matrix_market_triplet(file, N, M, r, c, v, options);
-        std::cout << "Num rows: " << N << "\n";
-        std::cout << "Num cols: " << M << "\n";
-        std::cout << "Num non-zeros: " << c.size() << "\n";
-        std::cout << "values: ";
-        for (auto &i : v)
-            std::cout << i << " ";
-        std::cout << "\n";
-
+        std::cout << "|V| = " << N << " |E| = " << M << "\n";
         sort_mtx(r, c, v);
     }
 
     void sort_mtx(std::vector<IT> &rows, std::vector<IT> &cols, std::vector<VT> &values) {
-        std::vector<IT> row_count(N, 0);
-        for (int i = 0; i < rows.size(); ++i)
-            ++row_count[rows[i]];
+        std::cout << "Sorting mtx file...\n";
+        std::vector<IT> row_count(N + 1, 0);
+
+        for (auto &v : rows)
+            ++row_count[v];
 
         vertices.assign(N + 1, 0);
-        std::inclusive_scan(row_count.begin(), row_count.end(), vertices.begin() + 1);
+        std::exclusive_scan(row_count.begin(), row_count.end(), vertices.begin(), 0);
         std::vector<IT> perm(rows.size());
         std::iota(perm.begin(), perm.end(), 0);
-        std::sort(perm.begin(), perm.end(), [&](IT i, IT j) {
+        std::sort(perm.begin(), perm.end(), [rows, cols](IT i, IT j) {
             if (rows[i] != rows[j])
                 return rows[i] < rows[j];
             if (cols[i] != cols[j])
@@ -69,18 +66,14 @@ template <typename IT, typename VT> class Graph {
         std::transform(perm.begin(), perm.end(), std::back_inserter(vals), [&](auto i) { return values[i]; });
         nnz = edges.size();
         M = nnz;
-        for (int i = 0; i < N; i++) {
-            std::cout << i << " -> ";
-            for (int row = vertices[i]; row < vertices[i + 1]; row++) {
-                std::cout << edges[row] << " ";
-            }
-            std::cout << "\n";
-        }
-        std::cout << "\n";
+        std::cout << "Done sorting mtx file...\n";
     }
 
-    /*
+    /* Partitions a graph into k parts usint METIS_PartGraphRecursive
      *
+     * @param k - The number of partitions to make
+     * @param p - The partition vector of size |k|+1, where the ith element is the starting index of the ith partition
+     * @param v_old - The input vector for SPMV
      */
     void partition_graph(int k, std::vector<int> &p, std::vector<double> &v_old) {
         std::cout << "Starting graph partitioning...\n";
@@ -97,10 +90,6 @@ template <typename IT, typename VT> class Graph {
 
         int rc = METIS_PartGraphRecursive(&N, &ncon, vertices.data(), edges.data(), nullptr, nullptr, nullptr, &k,
                                           nullptr, &ubvec, nullptr, &objval, partition.data());
-
-        for (int i = 0; i < N; i++) {
-            std::cout << i << " -> " << partition[i] << std::endl;
-        }
 
         std::vector<IT> new_id(N, 0), old_id(N, 0);
         int id = 0;
@@ -162,66 +151,55 @@ template <typename IT, typename VT> class Graph {
         std::cout << "Done determining separators...\n";
     }
 
+    // distributes the graph between the processes, ensuring each rank gets their respective partiton of the graph
     void distribute_graph(int rank, int size, std::vector<int> &p) {
         std::cout << "Distributing graph...\n";
+
+        std::vector<IT> vertices_displacement(p.begin(), p.end() - 1);
+        std::vector<IT> vertices_sendcount(size, 0);
+        std::vector<IT> edges_displacement(size, 0);
+        std::vector<IT> edges_sendcount(size, 0);
+
+        // compute displacement vectors for vertices and edges
+        if (rank == 0) {
+            std::adjacent_difference(p.begin() + 1, p.end(), vertices_sendcount.begin());
+
+            for (int i = 0; i < size; i++) {
+                int start = p[i], end = p[i + 1];
+                edges_sendcount[i] = vertices[end] - vertices[start];
+                edges_displacement[i] = vertices[start];
+            }
+        }
+
         MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
         MPI_Bcast(&M, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&nnz, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatter(vertices_sendcount.data(), 1, MPI_INT, &n_local_vertices, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatter(edges_sendcount.data(), 1, MPI_INT, &n_local_edges, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-        std::vector<int> counts(size, 0);
-        std::vector<int> row_displs(p.begin(), p.end() - 1);
-
-        if (rank == 0) {
-            for (int i = 0; i < size; i++)
-                counts[i] = p[i + 1] - p[i];
+        if (rank != 0) {
+            vertices.assign(n_local_vertices + 1, 0);
+            edges.assign(n_local_edges, 0);
+            vals.assign(n_local_edges, 0);
         }
 
-        MPI_Bcast(counts.data(), size, MPI_INT, 0, MPI_COMM_WORLD);
-
-        if (rank == 0) {
-            for (int i = 0; i < counts.size(); i++) {
-                std::cout << "Rank " << i << " gets " << counts[i] << " elements.\n";
-            }
-
-            for (auto i : vertices) {
-                std::cout << i << " ";
-            }
-            std::cout << std::endl;
-            for (auto i : edges) {
-                std::cout << i << " ";
-            }
-            std::cout << std::endl;
-        }
-        if (rank != 0)
-            vertices.assign(counts[rank] + 1, 0);
-
-        MPI_Scatterv(vertices.data(), counts.data(), row_displs.data(), MPI_INT, vertices.data(), counts[rank], MPI_INT,
-                     0, MPI_COMM_WORLD);
-
-        // displacement vector for edges
-        std::vector<int> col_displs(N, 0);
-        if (rank == 0)
-            std::inclusive_scan(vertices.begin() + 1, vertices.end(), col_displs.begin() + 1);
+        MPI_Scatterv(vertices.data(), vertices_sendcount.data(), vertices_displacement.data(), MPI_INT, vertices.data(),
+                     n_local_vertices, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatterv(edges.data(), edges_sendcount.data(), edges_displacement.data(), MPI_INT, edges.data(),
+                     n_local_edges, MPI_INT, 0, MPI_COMM_WORLD);
 
         if (rank == 0)
             vertices.resize(p[1] + 1);
 
+        // communicate overlap
         if (rank != 0)
             MPI_Send(&vertices[0], 1, MPI_INT, rank - 1, 0, MPI_COMM_WORLD);
         if (rank != size - 1)
-            MPI_Recv(&vertices[counts[rank]], 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(&vertices[vertices_sendcount[rank]], 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         else
-            vertices[counts[rank]] = M;
+            vertices[vertices_sendcount[rank]] = N;
 
-        MPI_Scatterv(edges.data(), counts.data(), col_displs.data(), MPI_INT, edges.data() + vertices[0], counts[rank],
-                     MPI_INT, 0, MPI_COMM_WORLD);
-
-        if (rank == 1) {
-
-            for (auto i : edges) {
-                std::cout << i << " ";
-            }
-        }
-        std::cout << "Done distributing graph...\n";
+        std::cout << "Done distributing graph\n";
     }
 
     void normalize();
