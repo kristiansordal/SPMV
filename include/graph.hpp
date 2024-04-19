@@ -74,20 +74,24 @@ template <typename IT, typename VT> class Graph {
     //     std::cout << "Done sorting mtx file...\n";
     // }
     void sort_mtx(std::vector<IT> &rows, std::vector<IT> &cols, std::vector<VT> &values) {
+        std::cout << "Sorting mtx file..." << std::endl;
         std::vector<std::tuple<IT, IT, VT>> tuples;
         tuples.reserve(rows.size());
         for (size_t i = 0; i < rows.size(); ++i)
             tuples.emplace_back(rows[i], cols[i], values[i]);
 
+        std::cout << "Start std::sort" << std::endl;
         std::sort(tuples.begin(), tuples.end(), [](const auto &a, const auto &b) {
             return std::tie(std::get<0>(a), std::get<1>(a)) < std::tie(std::get<0>(b), std::get<1>(b));
         });
+        std::cout << "End std::sort" << std::endl;
 
         for (size_t i = 0; i < tuples.size(); ++i) {
             rows[i] = std::get<0>(tuples[i]);
             cols[i] = std::get<1>(tuples[i]);
             values[i] = std::get<2>(tuples[i]);
         }
+        std::cout << "Done sorting mtx file..." << std::endl;
     }
 
     /* Partitions a graph into k parts usint METIS_PartGraphRecursive
