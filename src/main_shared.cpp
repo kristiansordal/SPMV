@@ -25,6 +25,9 @@ int main(int argc, char **argv) {
         std::swap(A, y);
     }
 
+#pragma omp parallel
+    { std::cout << "Hello from thread: " << omp_get_thread_num() << std::endl; }
+
     ops = 2 * g.nnz * num_steps;
     end = omp_get_wtime();
     std::cout << "Time: " << end - start << "\nGFLOPS: " << ops / ((end - start) * 1e9) << "\n";
