@@ -1,6 +1,7 @@
-#include "graph.hpp"
-#include <iostream>
+#include <graph.hpp>
 #include <mpi.h>
+#include <mtx.hpp>
+#define STEPS 100
 using namespace std;
 int main(int argc, char **argv) {
     int rank, size;
@@ -13,10 +14,11 @@ int main(int argc, char **argv) {
     vector<double> v_old;
     vector<vector<int>> separators(size);
     if (rank == 0) {
-        g.read_mtx(file);
+        MTX<int, double> mtx;
+        mtx.read_mtx(file);
+        g = mtx.mtx_to_csr();
 
         v_old.assign(g.N, 0);
-
         for (int i = 0; i < g.N; i++)
             v_old[i] = i;
 
@@ -25,17 +27,6 @@ int main(int argc, char **argv) {
     }
     MPI_Barrier(MPI_COMM_WORLD);
     g.distribute_graph(rank, size, p);
-
-    // if (rank == 0) {
-    //     for (int i = 0; i < g.N; i++) {
-    //     }
-    // }
-
-    // MPI_Bcast(&g.N, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    // MPI_Bcast(&g.M, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    // MPI_Bcast(&g.nnz, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
     MPI_Finalize();
-
     return 0;
 }

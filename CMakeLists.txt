@@ -30,22 +30,33 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fast_matrix_market)
 
-add_executable(1b 
-    src/main.cpp
+# List of all executables
+set(all_executables
+    dist
+    shared
+    seq
 )
 
+# Adding executables
+foreach(executable IN LISTS all_executables)
+    add_executable(${executable} 
+    src/main_${executable}.cpp
+    src/spmv.cpp
+    src/spmv.hpp
+    )
+endforeach()
 
-
-target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1b PRIVATE 
-    ${MPI_CXX_LIBRARIES}
-    ${METIS_LIBRARIES}
-    OpenMP::OpenMP_CXX
-    fast_matrix_market::fast_matrix_market
-    m
-
-)
-target_compile_options(1b PRIVATE -fsanitize=address -O3)
-target_link_options(1b PRIVATE -fsanitize=address)
+# Common include directories and link settings
+foreach(executable IN LISTS all_executables)
+    target_include_directories(${executable} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+    target_link_libraries(${executable} PRIVATE 
+        ${MPI_CXX_LIBRARIES}
+        ${METIS_LIBRARIES}
+        OpenMP::OpenMP_CXX
+        fast_matrix_market::fast_matrix_market
+    )
+    target_compile_options(${executable} PRIVATE -fsanitize=address -O3)
+    target_link_options(${executable} PRIVATE -fsanitize=address)
+endforeach()
 
 set(CMAKE_COLOR_DIAGNOSTICS On)
