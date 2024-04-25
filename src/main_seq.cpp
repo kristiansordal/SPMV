@@ -12,9 +12,9 @@ int main(int argc, char **argv) {
     std::vector<double> A(g.N, 0), y(g.N, 0);
     std::cout << A.size() << " " << y.size() << std::endl;
 
-    int num_steps = 100;
+    auto num_steps = 100;
     double start, end;
-    long long ops;
+    unsigned long long ops;
 
     for (int i = 0; i < g.N; i++)
         A[i] = ((double)rand() / (RAND_MAX)) + 1;
@@ -25,6 +25,12 @@ int main(int argc, char **argv) {
         std::swap(A, y);
     }
 
+    unsigned long long max_value = std::numeric_limits<unsigned long long>::max();
+    if (num_steps > 0 && max_value / num_steps < 2 * g.nnz) {
+        std::cerr << "Overflow will occur!\n";
+    } else {
+        ops = 2 * g.nnz * num_steps;
+    }
     std::cout << g.nnz << " " << num_steps << std::endl;
     ops = 2 * g.nnz * num_steps;
     std::cout << ops << std::endl;
