@@ -25,7 +25,9 @@ int main(int argc, char **argv) {
         std::swap(A, y);
     }
 
+    std::cout << g.nnz << " " << num_steps << std::endl;
     ops = 2 * g.nnz * num_steps;
+    std::cout << ops << std::endl;
     end = omp_get_wtime();
 
     std::cout << "Time: " << end - start << "\nGFLOPS: " << ops / ((end - start) * 1e9) << "\n";
