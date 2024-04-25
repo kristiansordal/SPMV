@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 
     int num_steps = 100;
     double start, end;
-    unsigned long long int ops;
+    int ops;
 
     for (int i = 0; i < g.N; i++)
         A[i] = ((double)rand() / (RAND_MAX)) + 1;
