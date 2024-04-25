@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
     }
     std::cout << g.nnz << " " << num_steps << std::endl;
     std::cout << g.nnz * num_steps << std::endl;
+    std::cout << 2 * g.nnz * num_steps << std::endl;
     ops = 2 * g.nnz * num_steps;
     std::cout << ops << std::endl;
     end = omp_get_wtime();
