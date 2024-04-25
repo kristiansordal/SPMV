@@ -16,7 +16,8 @@
 // sort_mtx function should return a Graph class
 template <typename IT, typename VT> class Graph {
   public:
-    int V, E, N, M, nnz;
+    int V, E, N, M;
+    unsigned long long int nnz;
     std::vector<IT> row_ptr, col_idx;
     std::vector<VT> vals;
 
