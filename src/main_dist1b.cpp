@@ -1,4 +1,4 @@
-#include <graph.hpp>
+#include <csr.hpp>
 #include <mpi.h>
 #include <mtx.hpp>
 #define STEPS 100
@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    Graph<int, double> g;
+    CSR<int, double> csr;
     string file = argv[1];
     vector<int> p(size + 1, 0);
     vector<double> v_old;
@@ -16,17 +16,17 @@ int main(int argc, char **argv) {
     if (rank == 0) {
         MTX<int, double> mtx;
         mtx.read_mtx(file);
-        g = mtx.mtx_to_csr();
+        csr = mtx.mtx_to_csr();
 
-        v_old.assign(g.N, 0);
-        for (int i = 0; i < g.N; i++)
+        v_old.assign(csr.N, 0);
+        for (int i = 0; i < csr.N; i++)
             v_old[i] = i;
 
-        g.partition_graph(size, p, v_old);
-        g.determine_separators(size, p, separators);
+        csr.partition(size, p, v_old);
+        csr.determine_separators(size, p, separators);
     }
     MPI_Barrier(MPI_COMM_WORLD);
-    g.distribute_graph(rank, size, p);
+    csr.distribute(rank, size, p, v_old);
     MPI_Finalize();
     return 0;
 }

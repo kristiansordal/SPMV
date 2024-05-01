@@ -1,14 +1,15 @@
 #pragma once
+#include <csr.hpp>
 #include <fast_matrix_market/fast_matrix_market.hpp>
 #include <fstream>
-#include <graph.hpp>
 #include <numeric>
 #include <tuple>
 #include <vector>
+#define DBUG(x) std::cout << #x << " is " << x << "\n"
 namespace fmm = fast_matrix_market;
 template <typename IT, typename VT> class MTX {
   private:
-    int M, N, nnz;
+    int N, M, nnz;
     std::vector<IT> rows, cols;
     std::vector<VT> vals;
     std::vector<std::tuple<IT, IT, VT>> triplets;
@@ -21,7 +22,7 @@ template <typename IT, typename VT> class MTX {
      * @param file_path: path to the .mtx file
      */
     void read_mtx(const std::string &file_path) {
-        std::cout << "Reading mtx file: " << file_path << "\n";
+        std::cout << "Reading MTX file: " << file_path << "\n";
         std::ifstream file(file_path);
 
         fmm::read_options options;
@@ -33,17 +34,23 @@ template <typename IT, typename VT> class MTX {
         for (int i = 0; i < nnz; i++)
             triplets[i] = {rows[i], cols[i], vals[i]};
 
-        rows.clear();
-        cols.clear();
-        vals.clear();
+        std::cout << "|V| = " << N << " |E| = " << nnz << "\n";
+        std::cout << "Done reading MTX file...\n";
+    }
+
+    double l2_norm_triplet() {
+        double norm = 0;
+        for (int i = 0; i < nnz; i++)
+            norm += std::get<2>(triplets[i]) * std::get<2>(triplets[i]);
+        return sqrt(norm);
     }
 
     /* Converts the triplet vector to CSR format
      * @return: Graph object in CSR format
      */
-    Graph<IT, VT> mtx_to_csr() {
+    CSR<IT, VT> mtx_to_csr() {
         std::cout << "Converting from MTX to CSR...\n";
-        Graph<IT, VT> graph{};
+        CSR<IT, VT> graph{};
         std::vector<IT> row_count(N + 1, 0);
         graph.row_ptr.resize(N + 1);
         graph.col_idx.resize(nnz);
@@ -68,7 +75,6 @@ template <typename IT, typename VT> class MTX {
         graph.V = N;
         graph.E = nnz;
         graph.nnz = nnz;
-        graph.row_ptr[N] = nnz;
         std::cout << "Done converting from MTX to CSR...\n";
         return graph;
     }

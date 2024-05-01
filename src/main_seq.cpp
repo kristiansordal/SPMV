@@ -1,11 +1,11 @@
 #include "spmv.hpp"
-#include <graph.hpp>
+#include <csr.hpp>
 #include <mtx.hpp>
 #include <omp.h>
 
 int main(int argc, char **argv) {
     MTX<int, double> mtx;
-    Graph<int, double> g;
+    CSR<int, double> g;
     std::string file = argv[1];
     mtx.read_mtx(file);
     g = mtx.mtx_to_csr();

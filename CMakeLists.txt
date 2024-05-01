@@ -30,9 +30,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fast_matrix_market)
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG release-1.12.1  # Specify the release version you want to use
+)
+FetchContent_MakeAvailable(googletest)
+
 # List of all executables
 set(all_executables
-    dist
+    dist1a
+    dist1b
     shared
     seq
 )
@@ -46,7 +55,6 @@ foreach(executable IN LISTS all_executables)
     )
 endforeach()
 
-# Common include directories and link settings
 foreach(executable IN LISTS all_executables)
     target_include_directories(${executable} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
     target_link_libraries(${executable} PRIVATE 
@@ -59,4 +67,21 @@ foreach(executable IN LISTS all_executables)
     target_link_options(${executable} PRIVATE -fsanitize=address)
 endforeach()
 
+# unit testing
+add_executable(test
+    test/test_spmv.cpp
+    src/spmv.cpp
+    src/spmv.hpp
+)
+
+target_link_libraries(test
+    ${MPI_CXX_LIBRARIES}
+    ${METIS_LIBRARIES}
+    OpenMP::OpenMP_CXX
+    fast_matrix_market::fast_matrix_market
+    gtest_main
+    gtest
+)
+
+target_compile_features(test PRIVATE cxx_std_20)
 set(CMAKE_COLOR_DIAGNOSTICS On)
