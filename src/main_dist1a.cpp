@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     std::adjacent_difference(p.begin() + 1, p.end(), recvcounts.begin());
 
     t_start = MPI_Wtime();
-    while (num_steps--) {
+    for (int i = 0; i < num_steps; i++) {
         spmv(csr, A, y);
         MPI_Allgatherv(y.data(), csr.V, MPI_DOUBLE, A.data(), recvcounts.data(), p.data(), MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);

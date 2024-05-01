@@ -12,7 +12,7 @@ void spmv(CSR<int, double> &csr, std::vector<double> &A, std::vector<double> &y)
 
 void spmv_shared(CSR<int, double> &csr, std::vector<double> &A, std::vector<double> &y) {
 #pragma omp parallel for schedule(runtime)
-    for (int v = 0; v < csr.V - 1; v++) {
+    for (int v = 0; v < csr.V; v++) {
         double sum = 0;
         for (int u = csr.row_ptr[v]; u < csr.row_ptr[v + 1]; u++)
             sum += csr.vals[u] * A[csr.col_idx[u]];

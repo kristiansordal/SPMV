@@ -3,9 +3,9 @@
 #include <fast_matrix_market/fast_matrix_market.hpp>
 #include <fstream>
 #include <numeric>
+#include <omp.h>
 #include <tuple>
 #include <vector>
-#define DBUG(x) std::cout << #x << " is " << x << "\n"
 namespace fmm = fast_matrix_market;
 template <typename IT, typename VT> class MTX {
   private:
@@ -31,6 +31,8 @@ template <typename IT, typename VT> class MTX {
         fmm::read_matrix_market_triplet(file, N, M, rows, cols, vals, options);
         nnz = rows.size();
         triplets.resize(nnz);
+
+#pragma omp parallel for
         for (int i = 0; i < nnz; i++)
             triplets[i] = {rows[i], cols[i], vals[i]};
 
@@ -62,6 +64,7 @@ template <typename IT, typename VT> class MTX {
             return std::get<0>(a) < std::get<0>(b);
         });
 
+#pragma omp parallel for
         for (int i = 0; i < nnz; i++) {
             auto triplet = triplets[i];
             row_count[std::get<0>(triplet)]++;

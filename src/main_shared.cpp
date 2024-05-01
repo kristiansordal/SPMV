@@ -19,17 +19,14 @@ int main(int argc, char **argv) {
         A[i] = ((double)rand() / (RAND_MAX)) + 1;
 
     t_start = omp_get_wtime();
-    while (num_steps--) {
+    for (int i = 0; i < num_steps; i++) {
         spmv_shared(g, A, y);
         std::swap(A, y);
     }
 
-    ops = 2 * g.nnz * num_steps;
-    std::cout << ops / 1e9 << std::endl;
-
     t_end = omp_get_wtime();
-    auto divisor = (t_end - t_start) * 1e9;
-    std::cout << "Time: " << t_end - t_start << "\n";
-    std::cout << "OPS: " << ops << std::endl;
-    std::cout << "GFLOPS: " << ops / divisor << "\n";
+    ops = 2 * g.nnz * num_steps;
+    std::cout << "Time: " << t_end - t_start << "s\n";
+    std::cout << "OPS: " << ops << "\n";
+    std::cout << "GFLOPS: " << ops / ((t_end - t_start) * 1e9) << "\n";
 }
