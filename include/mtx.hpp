@@ -3,7 +3,7 @@
 #include <fast_matrix_market/fast_matrix_market.hpp>
 #include <fstream>
 #include <numeric>
-#include <omp.h>
+// #include <omp.h>
 #include <tuple>
 #include <vector>
 namespace fmm = fast_matrix_market;
@@ -32,7 +32,6 @@ template <typename IT, typename VT> class MTX {
         nnz = rows.size();
         triplets.resize(nnz);
 
-#pragma omp parallel for
         for (int i = 0; i < nnz; i++)
             triplets[i] = {rows[i], cols[i], vals[i]};
 

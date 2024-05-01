@@ -4,7 +4,7 @@
 #include <metis.h>
 #include <mpi.h>
 #include <numeric>
-#include <omp.h>
+// #include <omp.h>
 #include <set>
 #include <vector>
 

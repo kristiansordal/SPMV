@@ -9,8 +9,8 @@ project(SpMV
 set(CMAKE_CXX_STANDARD 20)
 
 
-# Set include directory
 include_directories(${CMAKE_SOURCE_DIR}/include)
+
 
 # Set the module path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -18,7 +18,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 # Find MPI and METIS
 find_package(MPI REQUIRED)
 find_package(METIS REQUIRED)
-find_package(OpenMP REQUIRED)
+find_package(OpenMP REQUIRED) 
 
 # Find Fast Matrix Market
 include(FetchContent)
@@ -30,18 +30,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fast_matrix_market)
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1  # Specify the release version you want to use
-)
-FetchContent_MakeAvailable(googletest)
-
 # List of all executables
 set(all_executables
-    dist1a
-    dist1b
+    # dist1a
+    # dist1b
     shared
     seq
 )
@@ -55,6 +47,7 @@ foreach(executable IN LISTS all_executables)
     )
 endforeach()
 
+
 foreach(executable IN LISTS all_executables)
     target_include_directories(${executable} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
     target_link_libraries(${executable} PRIVATE 
@@ -67,21 +60,4 @@ foreach(executable IN LISTS all_executables)
     target_link_options(${executable} PRIVATE -fsanitize=address)
 endforeach()
 
-# unit testing
-add_executable(test
-    test/test_spmv.cpp
-    src/spmv.cpp
-    src/spmv.hpp
-)
-
-target_link_libraries(test
-    ${MPI_CXX_LIBRARIES}
-    ${METIS_LIBRARIES}
-    OpenMP::OpenMP_CXX
-    fast_matrix_market::fast_matrix_market
-    gtest_main
-    gtest
-)
-
-target_compile_features(test PRIVATE cxx_std_20)
 set(CMAKE_COLOR_DIAGNOSTICS On)
