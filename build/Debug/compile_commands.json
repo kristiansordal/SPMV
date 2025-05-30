@@ -1,0 +1,92 @@
+[
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategySequential.dir/src/strategySequential.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/strategySequential.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/strategySequential.c",
+  "output": "CMakeFiles/strategySequential.dir/src/strategySequential.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategySequential.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "output": "CMakeFiles/strategySequential.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategySequential.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "output": "CMakeFiles/strategySequential.dir/src/spmv.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyA.dir/src/strategyA.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyA.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyA.c",
+  "output": "CMakeFiles/strategyA.dir/src/strategyA.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyA.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "output": "CMakeFiles/strategyA.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyA.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "output": "CMakeFiles/strategyA.dir/src/spmv.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyB.dir/src/strategyB.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyB.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyB.c",
+  "output": "CMakeFiles/strategyB.dir/src/strategyB.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyB.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "output": "CMakeFiles/strategyB.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyB.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "output": "CMakeFiles/strategyB.dir/src/spmv.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyC.dir/src/strategyC.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyC.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyC.c",
+  "output": "CMakeFiles/strategyC.dir/src/strategyC.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyC.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "output": "CMakeFiles/strategyC.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyC.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "output": "CMakeFiles/strategyC.dir/src/spmv.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyD.dir/src/strategyD.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyD.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/strategyD.c",
+  "output": "CMakeFiles/strategyD.dir/src/strategyD.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyD.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/mtx.c",
+  "output": "CMakeFiles/strategyD.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+  "command": "/opt/homebrew/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SPMV/include -I/opt/homebrew/Cellar/open-mpi/5.0.7/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -O3 -march=native -fopenmp -o CMakeFiles/strategyD.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SPMV/src/spmv.c",
+  "output": "CMakeFiles/strategyD.dir/src/spmv.c.o"
+}
+]

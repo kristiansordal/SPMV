@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "SpMV",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "strategyA::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-strategyA-Debug-15f4719d1a62e9d9a189.json",
+					"name" : "strategyA",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "strategyB::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-strategyB-Debug-9064434f626201dad111.json",
+					"name" : "strategyB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "strategyC::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-strategyC-Debug-6258f2976f2f2299d95c.json",
+					"name" : "strategyC",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "strategyD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-strategyD-Debug-8278be7edfc9f7753b25.json",
+					"name" : "strategyD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "strategySequential::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-strategySequential-Debug-3810aecfb92ace066616.json",
+					"name" : "strategySequential",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug",
+		"source" : "/Users/kristiansordal/dev/uib/master/project/SPMV"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

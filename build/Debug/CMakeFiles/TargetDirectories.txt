@@ -1,0 +1,7 @@
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/strategySequential.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/strategyA.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/strategyB.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/strategyC.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/strategyD.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/edit_cache.dir
+/Users/kristiansordal/dev/uib/master/project/SPMV/build/Debug/CMakeFiles/rebuild_cache.dir
