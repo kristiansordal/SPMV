@@ -359,9 +359,7 @@ void sort_edges(CSR g) {
             for (int i = 0; i < degree; i++)
                 index[i] = i;
 
-            qsort_r(void *base, size_t nel, size_t width, void *,
-                    int (*_Nonnull compar)(void *, const void *, const void *))
-                qsort_r(index, degree, sizeof(int), compare, g.col_idx + g.row_ptr[u]);
+            qsort_r(index, degree, sizeof(int), compare, g.col_idx + g.row_ptr[u]);
             for (int i = 0; i < degree; i++) {
                 E_buffer[i] = g.col_idx[g.row_ptr[u] + index[i]];
                 A_buffer[i] = g.values[g.row_ptr[u] + index[i]];
