@@ -1,0 +1,80 @@
+Done parsing mtx
+1508065, 1508065, 27090195
+|V|=1508065 |E|=52672325
+Normalizing graph
+Mean of graph: 14922526663.638742
+c.send_count[2]: 1491 0.485593
+c.send_count[35]: 1596 0.073707
+c.send_count[19]: 1575 0.470042
+c.send_count[18]: 990 0.485593
+c.send_count[33]: 1240 0.090277
+c.send_count[63]: 1160 0.061184
+c.send_count[23]: 1395 0.479043
+c.send_count[8]: 1099 0.479043
+c.send_count[45]: 1110 0.058115
+c.send_count[26]: 1540 0.153863
+c.send_count[46]: 1175 0.066161
+c.send_count[47]: 1490 0.077754
+c.send_count[55]: 1250 0.069618
+c.send_count[62]: 1011 0.047952
+c.send_count[22]: 1532 0.470042
+c.send_count[1]: 1175 0.470042
+c.send_count[44]: 750 0.044793
+c.send_count[50]: 1488 0.067168
+c.send_count[24]: 720 0.458878
+c.send_count[17]: 1375 0.470042
+c.send_count[59]: 1350 0.064468
+c.send_count[31]: 1242 0.105709
+c.send_count[32]: 1105 0.062406
+c.send_count[42]: 1455 0.071990
+c.send_count[60]: 1384 0.072551
+c.send_count[28]: 1564 0.080752
+c.send_count[34]: 1400 0.072783
+Std of graph: 54964.762945
+Sorting edges
+c.send_count[0]: 1514 0.063133
+Total time = 0.763902s
+Communication time = 0.517767s
+Copmutation time = 0.245140s
+GFLOPS = 13.790341
+compGFLOPS = 0.000000
+NFLOPS = 10534465000.000000
+Comm min = 0.044793 GB
+Comm max = 0.485593 GB
+Comm avg = 0.232441 GB
+c.send_count[13]: 1535 0.479043
+c.send_count[56]: 1360 0.071216
+c.send_count[29]: 1519 0.073904
+c.send_count[30]: 1090 0.063425
+c.send_count[54]: 1500 0.082272
+c.send_count[57]: 1030 0.065833
+c.send_count[48]: 1394 0.092775
+c.send_count[40]: 1045 0.053972
+c.send_count[21]: 1385 0.470042
+c.send_count[61]: 1465 0.070262
+c.send_count[25]: 1215 0.473869
+c.send_count[52]: 965 0.053227
+c.send_count[51]: 1490 0.083208
+c.send_count[53]: 1420 0.076222
+c.send_count[27]: 1065 0.199348
+c.send_count[20]: 1510 0.470042
+c.send_count[3]: 1050 0.476593
+c.send_count[41]: 1475 0.086665
+c.send_count[7]: 1463 0.470042
+c.send_count[38]: 1420 0.084519
+c.send_count[14]: 1035 0.470042
+c.send_count[6]: 1486 0.470042
+c.send_count[49]: 1453 0.090855
+c.send_count[39]: 1550 0.083697
+c.send_count[15]: 1348 0.479043
+c.send_count[4]: 1351 0.470042
+c.send_count[16]: 1140 0.470042
+c.send_count[58]: 720 0.045359
+c.send_count[43]: 1175 0.063115
+c.send_count[37]: 1645 0.083065
+c.send_count[36]: 1431 0.102854
+c.send_count[10]: 742 0.476593
+c.send_count[11]: 1485 0.485593
+c.send_count[5]: 1515 0.470042
+c.send_count[9]: 1510 0.476593
+c.send_count[12]: 1482 0.470042

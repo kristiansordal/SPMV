@@ -1,0 +1,80 @@
+Done parsing mtx
+1102824, 1102824, 45204422
+|V|=1102824 |E|=89306020
+Normalizing graph
+Mean of graph: 279742.095031
+c.send_count[24]: 5221 0.313270
+c.send_count[31]: 4476 0.243425
+c.send_count[18]: 3613 1.497948
+c.send_count[12]: 2692 1.511484
+c.send_count[58]: 3082 0.190252
+c.send_count[54]: 3849 0.266719
+c.send_count[51]: 3713 0.360119
+c.send_count[11]: 4255 1.549566
+c.send_count[55]: 3266 0.291324
+c.send_count[13]: 6403 1.528716
+c.send_count[15]: 3559 1.549566
+c.send_count[7]: 4708 1.562184
+c.send_count[60]: 4531 0.298643
+c.send_count[43]: 4574 0.180960
+c.send_count[36]: 4374 0.269943
+c.send_count[40]: 3305 0.168180
+c.send_count[23]: 3969 0.272208
+c.send_count[46]: 3413 0.193202
+c.send_count[14]: 2746 1.549566
+c.send_count[39]: 4714 0.326997
+c.send_count[56]: 3262 0.207078
+c.send_count[45]: 4401 0.232387
+c.send_count[19]: 4034 1.523978
+c.send_count[42]: 4537 0.322640
+c.send_count[10]: 3343 1.511484
+c.send_count[52]: 3162 0.284493
+c.send_count[53]: 3004 0.275922
+c.send_count[35]: 7087 0.310731
+c.send_count[30]: 4100 0.302958
+c.send_count[49]: 5831 0.310951
+c.send_count[48]: 3952 0.415480
+c.send_count[1]: 3328 1.528716
+c.send_count[5]: 5200 1.528716
+c.send_count[3]: 3898 1.511484
+c.send_count[8]: 3498 1.528716
+c.send_count[63]: 2764 0.208020
+c.send_count[25]: 3135 1.246065
+c.send_count[22]: 3886 1.528823
+c.send_count[32]: 4426 0.270998
+c.send_count[20]: 5392 0.384748
+c.send_count[37]: 2843 0.235754
+c.send_count[34]: 4067 0.244468
+c.send_count[41]: 4242 0.314337
+c.send_count[33]: 4315 0.265664
+c.send_count[59]: 6549 0.391513
+c.send_count[4]: 4451 1.544952
+c.send_count[9]: 2891 1.532334
+c.send_count[6]: 3832 1.565802
+c.send_count[28]: 5273 0.369376
+c.send_count[29]: 4436 0.261158
+c.send_count[2]: 3223 1.544952
+c.send_count[17]: 4222 1.511484
+c.send_count[38]: 6046 0.375372
+c.send_count[57]: 6416 0.396067
+c.send_count[27]: 3200 0.149399
+c.send_count[21]: 5292 0.392610
+c.send_count[26]: 5766 0.265241
+c.send_count[16]: 4367 1.511484
+c.send_count[47]: 4198 0.272244
+c.send_count[61]: 3165 0.280935
+c.send_count[44]: 3459 0.210959
+c.send_count[62]: 5615 0.301087
+Std of graph: 0.339027
+Sorting edges
+c.send_count[0]: 4414 1.511484
+Total time = 2.083868s
+Communication time = 1.790285s
+Copmutation time = 0.291596s
+GFLOPS = 8.571177
+compGFLOPS = 0.000000
+NFLOPS = 17861204000.000000
+Comm min = 0.149399 GB
+Comm max = 1.565802 GB
+Comm avg = 0.708547 GB
+c.send_count[50]: 3368 0.339681

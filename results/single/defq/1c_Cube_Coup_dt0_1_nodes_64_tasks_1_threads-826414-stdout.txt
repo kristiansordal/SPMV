@@ -1,0 +1,80 @@
+Done parsing mtx
+2164760, 2164760, 64685452
+|V|=2164760 |E|=127206144
+Normalizing graph
+Mean of graph: 2865558760430079.000000
+c.send_count[57]: 8132 0.736088
+c.send_count[39]: 5292 0.472146
+c.send_count[18]: 6290 2.714133
+c.send_count[7]: 6073 2.714133
+c.send_count[62]: 7684 0.616592
+c.send_count[14]: 9111 2.812147
+c.send_count[27]: 6796 0.507271
+c.send_count[8]: 5400 2.766347
+c.send_count[16]: 7539 2.714133
+c.send_count[32]: 7580 0.676286
+c.send_count[9]: 8760 2.746320
+c.send_count[28]: 8848 0.557923
+c.send_count[25]: 8301 0.646269
+c.send_count[17]: 7966 2.714133
+c.send_count[55]: 5624 0.461632
+c.send_count[61]: 6772 0.465578
+c.send_count[47]: 8016 0.786144
+c.send_count[34]: 6484 0.436503
+c.send_count[30]: 9280 0.806022
+c.send_count[36]: 5772 0.372511
+c.send_count[3]: 9686 2.714133
+c.send_count[45]: 7572 0.510865
+c.send_count[44]: 8276 0.682217
+c.send_count[49]: 5388 0.420028
+c.send_count[33]: 8396 0.738871
+c.send_count[5]: 7595 2.792120
+c.send_count[50]: 8336 0.629252
+c.send_count[63]: 5868 0.542533
+c.send_count[2]: 7880 2.714133
+c.send_count[35]: 6964 0.530571
+c.send_count[15]: 7237 2.766347
+c.send_count[10]: 4992 2.798533
+c.send_count[59]: 7456 0.526547
+c.send_count[19]: 7109 0.577909
+c.send_count[21]: 4835 0.330973
+c.send_count[1]: 8321 2.766347
+c.send_count[13]: 8450 2.812147
+c.send_count[37]: 6200 0.411230
+c.send_count[20]: 6926 0.515550
+c.send_count[41]: 7568 0.646740
+Std of graph: 36977394425.053223
+Sorting edges
+c.send_count[0]: 8322 2.714133
+Total time = 3.674761s
+Communication time = 3.016420s
+Copmutation time = 0.658102s
+GFLOPS = 6.923233
+compGFLOPS = 0.000000
+NFLOPS = 25441228800.000000
+Comm min = 0.294209 GB
+Comm max = 2.812147 GB
+Comm avg = 1.234248 GB
+c.send_count[26]: 9236 0.688857
+c.send_count[60]: 9398 0.840878
+c.send_count[56]: 9564 0.665748
+c.send_count[31]: 9485 0.835454
+c.send_count[6]: 8520 2.766347
+c.send_count[40]: 8224 0.694072
+c.send_count[23]: 8103 0.497210
+c.send_count[12]: 6543 2.759933
+c.send_count[48]: 7228 0.514525
+c.send_count[4]: 8142 2.798533
+c.send_count[46]: 5836 0.527054
+c.send_count[54]: 8216 0.694555
+c.send_count[22]: 5064 0.294209
+c.send_count[53]: 9168 0.709242
+c.send_count[51]: 5584 0.437492
+c.send_count[52]: 7508 0.563031
+c.send_count[42]: 10096 0.744921
+c.send_count[38]: 10312 0.713760
+c.send_count[29]: 7292 0.655782
+c.send_count[11]: 6864 2.798533
+c.send_count[43]: 8548 0.783885
+c.send_count[58]: 7240 0.614434
+c.send_count[24]: 7800 0.529951

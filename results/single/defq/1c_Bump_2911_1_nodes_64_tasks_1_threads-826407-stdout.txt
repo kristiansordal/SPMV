@@ -1,0 +1,80 @@
+Done parsing mtx
+2911419, 2911419, 65320659
+|V|=2911419 |E|=127729899
+Normalizing graph
+Mean of graph: 25852354953359688.000000
+c.send_count[62]: 6756 0.595468
+c.send_count[56]: 10196 1.075006
+c.send_count[50]: 7570 0.664580
+c.send_count[24]: 9624 0.847274
+c.send_count[30]: 8529 0.757229
+c.send_count[51]: 8041 0.654298
+c.send_count[26]: 7086 0.680798
+c.send_count[7]: 11070 2.407670
+c.send_count[47]: 9654 0.896430
+c.send_count[8]: 7336 2.123564
+c.send_count[44]: 11220 1.015711
+c.send_count[53]: 11037 1.079535
+c.send_count[15]: 8811 2.048659
+c.send_count[25]: 10578 0.952244
+c.send_count[12]: 9120 2.167290
+c.send_count[11]: 7489 2.048659
+c.send_count[27]: 6954 0.536990
+c.send_count[48]: 10077 0.913244
+c.send_count[23]: 8643 0.785947
+c.send_count[31]: 8151 0.738740
+c.send_count[54]: 8594 0.676084
+c.send_count[21]: 8971 1.633120
+c.send_count[63]: 0 0.223780
+c.send_count[14]: 8457 2.057344
+c.send_count[3]: 11147 2.242678
+c.send_count[57]: 10362 0.940430
+c.send_count[34]: 9684 0.955939
+c.send_count[38]: 11074 1.111430
+c.send_count[58]: 9550 0.771284
+c.send_count[5]: 11325 2.524942
+c.send_count[35]: 11286 0.995791
+c.send_count[2]: 9320 2.208328
+c.send_count[17]: 8595 0.879037
+c.send_count[39]: 10902 1.152670
+c.send_count[46]: 8394 0.845021
+c.send_count[28]: 9088 0.798827
+c.send_count[52]: 8177 0.780749
+c.send_count[55]: 8816 0.777715
+c.send_count[1]: 7786 2.167290
+c.send_count[36]: 10994 1.127732
+c.send_count[45]: 8834 0.631201
+c.send_count[41]: 10977 1.104736
+c.send_count[40]: 8763 0.680429
+c.send_count[16]: 9949 2.127838
+c.send_count[19]: 8582 2.331269
+c.send_count[29]: 9758 0.870270
+c.send_count[13]: 7608 2.167290
+c.send_count[43]: 9342 0.879538
+c.send_count[60]: 9790 0.964165
+c.send_count[61]: 6734 0.710708
+c.send_count[32]: 10519 0.904268
+c.send_count[42]: 9104 0.848913
+Std of graph: 59215481929095.148438
+Sorting edges
+c.send_count[0]: 9291 2.258956
+Total time = 3.686065s
+Communication time = 3.016220s
+Copmutation time = 0.660176s
+GFLOPS = 6.930420
+compGFLOPS = 0.000000
+NFLOPS = 25545979800.000000
+Comm min = 0.223780 GB
+Comm max = 3.000724 GB
+Comm avg = 1.298368 GB
+c.send_count[22]: 8146 2.983612
+c.send_count[4]: 8226 2.199560
+c.send_count[9]: 11110 2.048421
+c.send_count[20]: 8330 3.000724
+c.send_count[37]: 9384 0.889194
+c.send_count[59]: 11501 0.955230
+c.send_count[10]: 6180 2.048659
+c.send_count[18]: 9205 1.020741
+c.send_count[33]: 8402 0.622332
+c.send_count[49]: 9107 0.772345
+c.send_count[6]: 8833 2.215594

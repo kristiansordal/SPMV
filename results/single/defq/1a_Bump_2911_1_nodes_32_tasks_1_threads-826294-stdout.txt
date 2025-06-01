@@ -1,0 +1,85 @@
+Rank 1 at barrier 1
+Rank 2 at barrier 1
+Rank 3 at barrier 1
+Rank 4 at barrier 1
+Rank 5 at barrier 1
+Rank 6 at barrier 1
+Rank 7 at barrier 1
+Rank 8 at barrier 1
+Rank 9 at barrier 1
+Rank 10 at barrier 1
+Rank 11 at barrier 1
+Rank 12 at barrier 1
+Rank 13 at barrier 1
+Rank 14 at barrier 1
+Rank 15 at barrier 1
+Rank 16 at barrier 1
+Rank 17 at barrier 1
+Rank 18 at barrier 1
+Rank 20 at barrier 1
+Rank 21 at barrier 1
+Rank 22 at barrier 1
+Rank 23 at barrier 1
+Rank 24 at barrier 1
+Rank 25 at barrier 1
+Rank 27 at barrier 1
+Rank 28 at barrier 1
+Rank 29 at barrier 1
+Rank 19 at barrier 1
+Rank 30 at barrier 1
+Rank 26 at barrier 1
+Rank 31 at barrier 1
+Done parsing mtx
+2911419, 2911419, 65320659
+|V|=2911419 |E|=127729899
+Normalizing graph
+Mean of graph: 25852354953359688.000000
+Std of graph: 59215481929095.148438
+Sorting edges
+partitioning graph
+distributing graph
+Rank 0 at barrier 1
+Rank 0 past barrier 1
+Rank 2 past barrier 1
+Rank 4 past barrier 1
+Rank 8 past barrier 1
+Rank 16 past barrier 1
+Rank 20 past barrier 1
+Rank 24 past barrier 1
+Rank 1 past barrier 1
+Rank 5 past barrier 1
+Rank 6 past barrier 1
+Rank 9 past barrier 1
+Rank 12 past barrier 1
+Rank 17 past barrier 1
+Rank 18 past barrier 1
+Rank 22 past barrier 1
+Rank 28 past barrier 1
+Rank 3 past barrier 1
+Rank 7 past barrier 1
+Rank 10 past barrier 1
+Rank 11 past barrier 1
+Rank 13 past barrier 1
+Rank 14 past barrier 1
+Rank 15 past barrier 1
+Rank 19 past barrier 1
+Rank 21 past barrier 1
+Rank 23 past barrier 1
+Rank 25 past barrier 1
+Rank 26 past barrier 1
+Rank 27 past barrier 1
+Rank 29 past barrier 1
+Rank 30 past barrier 1
+Rank 31 past barrier 1
+starting spmv
+done spmv
+Total time = 24.481077s
+Communication time = 23.636962s
+Copmutation time = 0.844075s
+GFLOPS = 1.043499
+compGFLOPS = 1.043499
+NFLOPS1 = 25545979800.000000
+NFLOPS2 = 25545979800.000000
+Comm min = 17.353410 GB
+Comm max = 17.353410 GB
+Comm avg = 17.353410 GB

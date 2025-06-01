@@ -1,0 +1,48 @@
+Done parsing mtx
+2164760, 2164760, 64685452
+|V|=2164760 |E|=127206144
+Normalizing graph
+Mean of graph: 2865558760430079.000000
+c.send_count[9]: 9220 1.920295
+c.send_count[25]: 9520 0.694001
+c.send_count[1]: 10292 0.527012
+c.send_count[10]: 11700 1.962805
+c.send_count[13]: 11168 1.851410
+c.send_count[16]: 10068 1.951647
+c.send_count[28]: 11045 0.675607
+c.send_count[2]: 8376 1.907849
+c.send_count[30]: 14328 1.039171
+c.send_count[22]: 8632 0.848222
+c.send_count[21]: 10140 1.937717
+c.send_count[4]: 11557 1.907849
+c.send_count[15]: 14042 2.006602
+c.send_count[26]: 9088 0.617194
+c.send_count[31]: 11212 0.762802
+c.send_count[17]: 12064 1.920295
+c.send_count[3]: 8580 1.851410
+c.send_count[18]: 11717 1.907849
+c.send_count[14]: 11771 1.962805
+c.send_count[20]: 11506 1.907849
+c.send_count[5]: 14480 1.920295
+c.send_count[6]: 11320 1.907849
+c.send_count[7]: 11132 1.937717
+c.send_count[29]: 12167 0.971323
+c.send_count[27]: 7696 0.408173
+Std of graph: 36977394425.053223
+Sorting edges
+c.send_count[0]: 10968 1.444978
+Total time = 3.629564s
+Communication time = 2.381234s
+Copmutation time = 1.245822s
+GFLOPS = 7.009446
+compGFLOPS = 0.000000
+NFLOPS = 25441228800.000000
+Comm min = 0.408173 GB
+Comm max = 2.006602 GB
+Comm avg = 1.499762 GB
+c.send_count[8]: 7348 2.006602
+c.send_count[23]: 10536 0.689602
+c.send_count[19]: 13353 1.937717
+c.send_count[11]: 10942 1.937717
+c.send_count[12]: 10240 2.006602
+c.send_count[24]: 11656 0.663406

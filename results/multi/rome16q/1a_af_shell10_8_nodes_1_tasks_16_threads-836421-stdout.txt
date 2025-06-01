@@ -1,0 +1,13 @@
+1508065, 1508065, 27090195
+|V|=1508065 |E|=52672325
+Normalizing graph
+Mean of graph: 14922526663.662901
+Std of graph: 54964.762948
+Total time = 0.385326s
+Communication time = 0.224307s
+Copmutation time = 0.160997s
+NFLOPS = 10534465000.000000
+GFLOPS = 27.339081
+Comm min = 8.988768 GB
+Comm max = 8.988768 GB
+Comm avg = 8.988768 GB

@@ -1,0 +1,80 @@
+Done parsing mtx
+1391349, 1391349, 32961525
+|V|=1391349 |E|=64531701
+Normalizing graph
+Mean of graph: 9735824330017282.000000
+c.send_count[55]: 5944 0.370288
+c.send_count[56]: 6454 0.429738
+c.send_count[58]: 5251 0.398409
+c.send_count[25]: 4148 1.188439
+c.send_count[63]: 5733 0.494093
+c.send_count[1]: 1038 0.922847
+c.send_count[17]: 4836 1.108438
+c.send_count[51]: 4344 0.306493
+c.send_count[41]: 5977 0.405920
+c.send_count[54]: 4964 0.291437
+c.send_count[13]: 3835 1.323307
+Std of graph: 146337844782.200317
+Sorting edges
+c.send_count[0]: 2043 1.780361
+Total time = 2.088503s
+Communication time = 1.926874s
+Copmutation time = 0.161432s
+GFLOPS = 6.179708
+compGFLOPS = 0.000000
+NFLOPS = 12906340200.000000
+Comm min = 0.217974 GB
+Comm max = 1.780361 GB
+Comm avg = 0.686923 GB
+c.send_count[2]: 1587 0.947970
+c.send_count[15]: 1635 0.960475
+c.send_count[57]: 6572 0.421095
+c.send_count[16]: 6013 1.018089
+c.send_count[53]: 5898 0.468659
+c.send_count[59]: 5455 0.256783
+c.send_count[60]: 6344 0.505418
+c.send_count[19]: 4606 0.935316
+c.send_count[48]: 4469 0.267768
+c.send_count[47]: 5227 0.403273
+c.send_count[21]: 5319 0.988215
+c.send_count[18]: 5048 0.988215
+c.send_count[52]: 6793 0.442839
+c.send_count[7]: 1036 0.935316
+c.send_count[8]: 5545 0.993633
+c.send_count[12]: 3579 1.006860
+c.send_count[22]: 5626 1.275629
+c.send_count[28]: 6598 0.473171
+c.send_count[24]: 5626 1.194000
+c.send_count[26]: 6135 1.194000
+c.send_count[33]: 3565 0.297856
+c.send_count[39]: 5094 0.306141
+c.send_count[29]: 5326 0.423163
+c.send_count[45]: 6485 0.614917
+c.send_count[23]: 3610 1.239604
+c.send_count[31]: 6259 0.496811
+c.send_count[62]: 6397 0.424457
+c.send_count[30]: 4393 0.301468
+c.send_count[46]: 6366 0.387400
+c.send_count[32]: 5863 0.335884
+c.send_count[36]: 5215 0.484365
+c.send_count[4]: 2988 1.071340
+c.send_count[35]: 5030 0.375086
+c.send_count[61]: 5649 0.481123
+c.send_count[6]: 2092 1.023245
+c.send_count[10]: 5513 1.090497
+c.send_count[11]: 3462 1.052028
+c.send_count[42]: 4594 0.480020
+c.send_count[49]: 5277 0.371474
+c.send_count[14]: 1030 0.929022
+c.send_count[37]: 6286 0.504041
+c.send_count[27]: 4905 0.369197
+c.send_count[50]: 4072 0.253528
+c.send_count[43]: 5410 0.365776
+c.send_count[34]: 5997 0.455910
+c.send_count[40]: 4215 0.217974
+c.send_count[9]: 5422 1.028037
+c.send_count[44]: 6118 0.492108
+c.send_count[3]: 2049 0.947970
+c.send_count[20]: 5788 1.071149
+c.send_count[5]: 1524 0.941491
+c.send_count[38]: 4756 0.433499

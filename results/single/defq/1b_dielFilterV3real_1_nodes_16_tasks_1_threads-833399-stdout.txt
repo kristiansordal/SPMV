@@ -1,0 +1,63 @@
+Done parsing mtx
+1102824, 1102824, 45204422
+|V|=1102824 |E|=89306020
+Normalizing graph
+Mean of graph: 279742.095031
+413434
+c.send_count[6]: 8976 0.802517
+206916
+c.send_count[3]: 8493 0.759333
+343815
+c.send_count[5]: 6217 0.555843
+Std of graph: 0.339027
+Sorting edges
+68754
+69549
+68613
+68262
+68637
+69619
+68703
+69017
+69587
+68955
+68240
+68277
+69619
+69568
+69150
+68274
+0
+Total time = 2.425020s
+Communication time = 0.473410s
+Copmutation time = 1.873067s
+NFLOPS = 17861204000.000000
+GFLOPS = 7.365384
+Comm min = 0.467956 GB
+Comm max = 0.876009 GB
+Comm avg = 0.698095 GB
+c.send_count[0]: 8370 0.748336
+275178
+c.send_count[4]: 8469 0.757188
+689696
+c.send_count[10]: 5234 0.467956
+138303
+c.send_count[2]: 7896 0.705957
+895832
+c.send_count[13]: 6697 0.598758
+68754
+c.send_count[1]: 8991 0.803858
+620741
+c.send_count[9]: 9798 0.876009
+965400
+c.send_count[14]: 6909 0.617713
+826213
+c.send_count[12]: 8854 0.791609
+482137
+c.send_count[7]: 5744 0.513554
+757936
+c.send_count[11]: 7761 0.693887
+551154
+c.send_count[8]: 8438 0.754416
+1034550
+c.send_count[15]: 8082 0.722587
